@@ -5,7 +5,10 @@ const knex = require('knex')(config)
 const app = express();
 const cors = require('cors');
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET','POST','DELETE','UPDATE','PATCH']
+}));
 app.use(express.json());
 
 //CREATE ------------------------------------------------------//
