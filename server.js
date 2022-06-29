@@ -17,10 +17,6 @@ app.post('/movies', (req, res) => {
 });
 
 // READ -------------------------------------------------------//
-app.get('/', (req, res) => {
-  res.send('Movies!')
-});
-
 app.get('/movies', (req, res) => {
   knex('movielist')
   .select('*')
