@@ -3,30 +3,11 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
- module.exports = {
+module.exports = {
 
   development: {
-    client: "pg",
-    connection: {
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-    },
-    migrations: {
-      directory: "./migrations",
-    },
-    seeds: {
-      directory: "./seeds",
-    },
-  },
-  test: {
-    client: 'postgresql',
-    connection: {
-      host: 'db',
-      password: 'docker',
-      user: 'postgres', //default postgres user
-      port: 5432,
-      database: 'movies2' // expected database name to be created
-    }
+    client: 'pg',
+    connection:'postgres://postgres:docker@localhost/movies2'
   },
 
   staging: {
@@ -46,18 +27,32 @@
   },
 
   production: {
-    client: "pg",
+    client: 'postgresql',
     connection: {
-      connectionString: process.env.DATABASE_URL
-      ,
-      ssl: { rejectUnauthorized: false },
+      database: 'my_db',
+      user:     'username',
+      password: 'password'
+    },
+    pool: {
+      min: 2,
+      max: 10
     },
     migrations: {
-      directory: "./migrations",
+      tableName: 'knex_migrations'
+    }
+  },
+  production: {
+    client: 'postgresql',
+    connection: process.env.DATABASE_URL+'?ssl=no-verify',
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      directory: './migrations'
     },
     seeds: {
-      directory: "./seeds",
-    },
-  },
-
+      directory: './seeds'
+    }
+  }
 };

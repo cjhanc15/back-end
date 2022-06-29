@@ -1,9 +1,13 @@
-const env = process.env.NODE_ENV || 'development'
-const config = require('./knexfile')[env]
 const express = require('express');
-const knex = require('knex')(config)
+const knex = require('knex')(require('./knexfile.js')[process.env.NODE_ENV||'development']);
 const app = express();
 const cors = require('cors');
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET','POST','DELETE','PATCH']
+}));
+app.use(express.json())
 
 app.use(cors({
   origin: '*',
